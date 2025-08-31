@@ -134,7 +134,7 @@ categories.forEach(cat => {
 function showDetails(category, clickedBtn) {
   selectedCategory.textContent = category;
   detailContainer.innerHTML = "";
-  output.textContent = "Результат: —";
+  output.innerHTML = "Результат: —";
   detailsBlock.classList.remove("hidden");
 
   document.querySelectorAll("#main-buttons button").forEach(b => b.classList.remove("selected"));
@@ -153,18 +153,24 @@ function showDetails(category, clickedBtn) {
 }
 
 function showEntry(entry) {
-  const requiredFields = [
-    'Kostenträger - Nr.', 'Tarif', 'Kostenträger - Name / Ort',
-    'Zusatztext fur Rechnung', 'Von Objekt / Ort', 'Nach Objekt / Ort',
-    'Statistik', 'Zusatzfeld', 'Name'
+  const fields = [
+    "Name",
+    "Kostenträger - Nr.",
+    "Kostenträger - Name / Ort",
+    "Von Objekt / Ort",
+    "Nach Objekt / Ort",
+    "Statistik",
+    "Zusatzfeld",
+    "Tarif",
+    "Zusatztext fur Rechnung"
   ];
 
-  const html = requiredFields.map(field => {
+  const rows = fields.map(field => {
     const value = entry[field] && entry[field].trim() !== "" ? entry[field] : "—";
-    return `<strong>${field}</strong>: ${value}`;
-  }).join("<br>");
+    return `<tr><td><strong>${field}</strong></td><td>${value}</td></tr>`;
+  }).join("");
 
-  output.innerHTML = html;
+  output.innerHTML = `<table><tbody>${rows}</tbody></table>`;
 }
 
 // PWA: реєстрація service worker
